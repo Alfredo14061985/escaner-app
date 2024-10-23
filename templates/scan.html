@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escaneo de Contenedores y Artículos</title>
+</head>
+<body>
+    <h1>Escaneo de Contenedores y Artículos</h1>
+    <form action="/scan" method="POST">
+        <label for="contenedor">Número de Contenedor:</label>
+        <input type="text" id="contenedor" name="contenedor" required>
+        <button type="submit">Escanear Contenedor</button>
+    </form>
+    {% if contenedor %}
+        <h2>Contenedor: {{ contenedor }}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Artículo</th>
+                    <th>Descripción</th>
+                    <th>Cant. Manifestada</th>
+                    <th>Cant. Recibida</th>
+                    <th>Diferencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in contenido %}
+                    <tr>
+                        <td>{{ item.Articulo }}</td>
+                        <td>{{ item['Desc. articulo'] }}</td>
+                        <td>{{ item['Cant. manifestada'] }}</td>
+                        <td>{{ item['Cant. recibida'] }}</td>
+                        <td>{{ item.Diferencia }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form action="/scan-article" method="POST">
+            <input type="hidden" name="contenedor" value="{{ contenedor }}">
+            <label for="articulo">Artículo o Código UPC:</label>
+            <input type="text" id="articulo" name="articulo" required>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" required>
+            <button type="submit">Escanear Artículo</button>
+        </form>
+    {% endif %}
+</body>
+</html>
