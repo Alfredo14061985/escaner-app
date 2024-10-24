@@ -34,8 +34,11 @@ def upload_file():
         ruta_archivo = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(ruta_archivo)
         global datos_globales
-        datos_globales = pd.read_csv(ruta_archivo)
-        flash(f'Archivo {file.filename} cargado correctamente.')
+        try:
+            datos_globales = pd.read_csv(ruta_archivo)
+            flash(f'Archivo {file.filename} cargado correctamente.')
+        except Exception as e:
+            flash(f'Error al cargar el archivo: {e}')
     return redirect(url_for('index'))
 
 @app.route('/scan', methods=['GET', 'POST'])
