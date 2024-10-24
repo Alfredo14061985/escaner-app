@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Actualiza a la versión más reciente
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4  # Actualiza a la versión más reciente
         with:
           python-version: '3.x'
 
@@ -27,6 +27,5 @@ jobs:
 
       - name: Deploy to Vercel
         env:
-          VERCEL_TOKEN: ${{ secrets.VERTOK }}
+          VERCEL_TOKEN: ${{ secrets.VERTOK }}  # Usa el nombre correcto del secreto
         run: vercel --prod
-
